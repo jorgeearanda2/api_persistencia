@@ -25,8 +25,8 @@ describe ('POST/users',function(){
 })
 describe ('GET/users/name',function(){
     it("Should return the user with that name",async function (){
-        let res = await request(app).get('/users/juan')
+        let res = await request(app).get('/users/Lolo')
             assert.equal(res.status,200)
-            assert.equal(res.body.name,'juan' );
+            assert.equal(res.body.name,'Lolo' );
     })
 })

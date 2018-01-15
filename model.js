@@ -1,7 +1,7 @@
 function connectToDB(){
     const mongoose = require('mongoose');
     mongoose.connect('mongodb://localhost/test', {useMongoClient:true});
-    mongoose.Promise = require('bluebird');
+    mongoose.Promise = Promise;
     return mongoose;
 }
 
@@ -14,8 +14,10 @@ module.exports = function getModels() {
         
 
     }));
-    models.person.findAll = async function(){
-        return models.person.find({},function(err,users){
+    models.person.findAll = async function(filter){
+        const query = {};
+        if(filter) query.name = {"$regex":filter}
+        return models.person.find(query,function(err,users){
             return users;
         }
         )};
@@ -24,6 +26,12 @@ module.exports = function getModels() {
     }
     models.person.findByName = async function(name){
         return models.person.findOne({"name" : name});
+    }
+    models.person.removeAll = async function(){
+        return models.person.remove({});
+    }
+    models.person.removeOne = async function(name){
+        return models.person.remove({"name": name});
     }
         
     

@@ -3,8 +3,9 @@ module.exports = function injectRoute(models){
         path : '/users',
         method : 'get',
         controller : async function controller(req,res){
-            const users = await models.person.findAll();
-            res.send(users);
+            let filter = req.query.filter;
+            const users = await models.person.findAll(filter);
+            return res.json(users);
         }
     }
     return findAll;
