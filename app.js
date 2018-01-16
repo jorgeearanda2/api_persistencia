@@ -3,13 +3,10 @@ function init(){
     const app = express();
     var bodyParser = require ('body-parser');
     app.use(bodyParser.json(),bodyParser.urlencoded({extended:true}));
-
     const getModels = require('./model');
     const model = getModels();
-    
     const injectRoutes = require('./controllers');
-    /*const addPeople = require('./gente.js');
-    addPeople(model);*/
+
     injectRoutes(app,model);
     
     app.listen(8080);
